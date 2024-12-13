@@ -169,7 +169,7 @@ input[type="checkbox"], input[type="radio"] {
     margin-top: 20px;
 }
 
-/* Página principal */
+/* Pï¿½gina principal */
 .titulo {
     text-align: left;
     font-size: 30px;
@@ -853,6 +853,14 @@ input[type="checkbox"], input[type="radio"] {
     color: #005b88;
 }
 
+.fa-bell {
+    font-size: 1.3em; /* TamaÃ±o del icono */
+    color: #005b88; /* Color azul para el icono */
+    background-color: white;
+    border-radius: 50%;
+    
+}
+
 .menuvisitante {
     font-size: 1em;
     margin: 0 3px 0 3px;
@@ -1417,7 +1425,7 @@ a.article:hover {
 }
 
 .bell-m{
-    font-size:2em;
+    font-size:4em;
 }
 /* ---------------------------------------------------
     CONTENT STYLE
