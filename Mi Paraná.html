@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://mi.parana.gob.ar/misdatos.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#31577c">
+<title>
+    Mi Paraná
+</title>
+
+
+
+<script src="./Mi Paraná_files/jquery-3.1.1.min.js.descarga"></script>
+
+
+<script src="./Mi Paraná_files/popper.min.js.descarga"></script>
+
+<link href="./Mi Paraná_files/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="./Mi Paraná_files/sweetalert2.min.css">
+<script type="text/javascript" src="./Mi Paraná_files/sweetalert2.min.js.descarga"></script>
+
+<link href="./Mi Paraná_files/bootstrap.min.css" rel="stylesheet">
+
+<style id="custom-cursor" type="text/css">body button, body [type='button'], body input[type='reset'], body input[type='submit'], body [role="button"], ::-webkit-search-cancel-button, ::-webkit-search-decoration, ::-webkit-scrollbar-button, ::-webkit-file-upload-button, [role^=button], .cc_pointer, [type="search"]::-webkit-search-cancel-button, a, select, [type="search"]::-webkit-search-decoration, .paper-button, .ytp-progress-bar-container, input[type=submit], :link, :visited, a > *, img,  ::-webkit-scrollbar-button, .ogdlpmhglpejoiomcodnpjnfgcpmgale_pointer, ::-webkit-file-upload-button, .ytp-volume-panel, #myogdlpmhglpejoiomcodnpjnfgcpmgale .icon, body .custom-cursor-on-hover {cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAA/5JREFUOE+t1H1ME2ccB/DvHddSyosEGavSDla0M6AwBw6mEoaLMOdwjE0XWdSMgGMs4S/Jsi1EEgpxgmTKCM4XmFOjY1GiqAxmxDERCSphqAxkYAso0BZor293vZcFDHUwNGbZ88cld/fc57nf9/fkIcQa0QNqJhQQXESMXI85o+mEXbkgwIu53UtX6g3m8UkbJ/WRqCzFJVTu3LlT94TYbtZ29vbmkaRE8pJCme+fGFg0M7H5BB3u4ImuuqvnWc2yZNnXu5PAMDakpVRA5b+ysuTHgJy5KDFR1m7cXLd/oVwqw56sLxAUoPicdnqYeoZ0eR6eQYtOXTi2uOb8QSS+uRNh4Wn44fA20NZH+DChEip51OHSesXOf6KEeLTHektq8f6yuhwCz6Pks0J4UD7IKMyCIjAUmVuLUXQgCzp9N16L/RT6/pvou98MFyx4P6oMCiqqvPJWhLt8Qkyp/V1IWb62RTaB/CP7IJfKkbtlF5o7ruPs5ZNQvrgMsbGfoPpYDngecLk4MKwLdtcQCAAbQ8uglsTHH+h95drjDDfX+MBMdHAfxCxppkwo/akCIg/kbtWiofUSfmurhc1mhShScLEMnE4WY5M9EEUBEDmsDdqFaO8dW/YPLP15Gpy6iAUFpNAa2WVKjghv87Ki9PReUKCQFJ+Nmgt7IfAiGIYFy3IYMfTBah93x0YSFNJfOAmp0yezypxwdBqcRlNr/Rmr2GLaEB1+RWLE8XPfwuFwQBQIsKxrutTxSRN0g50AQc5qbogkDm97ajO+p+Oq3eA0igKSXhepG1gfrWwlJ3GmYR947nFmLMPidtdV8FNBzhkKajnekWoFniM0s8C7dXT28PDD8uGRUYqWeMPJydDQVAhRIDFmHMWd7rb59jIgWpEo1SJ9UYzODeqP6FMdyuDa784Ww2geBcs4ERmRDbPNge57VbjR3oSJSeM8IIcoajs+CvwY29Zw/W6QTz7z1fAqTdF1FYXhsUewOgWMGfowOnYHNjuN+sbTACGZA3JY7ZWLTYqN2LDak3cRlPpJUzad82UcXL1ZrV5D0gwYRsQVjUocHZ8gGgYa0XfvGh4M/QLABRAyQHRgpTwLaartSHhDbrCQZNy7VZFP/nCmKS07UncHmwwPKNpOcb7ehwSj1WkIUcr+nPDERdNNOGgWF+/n4XW/LKwPTseqeD/eREo1GZUh/e59OH/SQEtaS4hKN0iNaNRa2d3BIN8VL6/r6LSixs5iycIAMSw2yMKLZFRmxWLdjDGry0+Dp57fiL3k9/DVpYlhTX8k9UgDc4aSV5gtEo+Ygj0L+mYdDs9CnvauMebyN7++99ahknzir38dX/8FfNY3z13y8y78v4N/A6DovaBh6+fmAAAAAElFTkSuQmCC") 0 1, pointer !important;} html,body,body select,body .custom-cursor-default-hover {cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAA89JREFUOE+d1H9Qk3UcB/D3A2MDxg+3xS8Xwm0N7mCExAyi0jIjfh00tO68usvSy/MPus6yq7PrpmlqdV55XB2TpkQnBxyo0WFniYimkVMhAhmCIIuFY4wf2/Nje549T7cV3Kkzte9fz/N9Pt/X5/P9PM/3ITw/Tu5mIyO6OF/E9HB0WG+uDhwBQsD/HAS7tet3quzRjM7eHm92+uMMw4t2ztG8zydIagteJugHdQlf+dH3XG8U7Nv7w3foGxmCIjYJiXHLuFUF60Wjk5OHU1SprX/exM0tbxG/3Q9OCM+1KrjkqBuDlculGz7aBNbLgmE8oCgaqpTH4HBOobT8Q69Yqh6Zn5lfF44lccLsnPnz+kQyWALCPykUN1eR+pUH6m1mHGozwsfyYDwe0DQTwG32XjwUnwFZjBpJ8uzZpzXv8HN266kQmjd5SN94zZXMgQU8APoHtfH0UH/JCs0e0weYctrBeLyBakfG+uAiHQAIQOABMIiQLMXKR95HekwJZByFHRe1i87ihbD6yPqxovwjR8lrOHG2HhzLw026cfHyzwARsrg7eYwaep0RUjYWhQo3ZHEySKAS64wE6w9aBP03Xn2bpbuyKK22fSccMzaMW0fR198NEP+GCSw2FJ9BhliBfDlFM+Lwz84npe02GAjvHVv+p5ctD/fkLbd2R3HoOF+N3n4zLEN9gdiQkDDwPIv0paUoythHywgu1TY9O2O8pAtUFhwECPqF1lPH9aXPdl3aj586WjB8fRBLYlOgLzqEuuZC8D4KJdpqIdQjsiaLcs1fXc1ee1cwUGV+Q6olK3P0hCYBNaYyDFquQiZTY9O6c7jQuQ1T5DwsEw0QixLxamojxZGeAxJfpPmg/cmWO3q4kMlW2L7rWOHz2xvbtuFM10HkaF/HntwqJDv+golRobqzAAAHlmewTJyHEuneP5hpd4UAwXXLS1kAhRxT3IU0ra1OGSuq2Z+FLa9cQYUEA+Ez5BfzU5zRKwrF8Qk36q8V+rsLZVgetIQeCVzux0FBP2zXNe06tubF7Q3d1XhTuRo6gi7X1D/RdnJtzw5MOKPOOaO3UpwV3VOXcdb1KcSEHJ+o6m79bG4/Sicrfh3rUOekrHIMuYu/zYpeeN6El0ITKt8dnR0n57+3iDMHvM1IYvOx5inN6btW6F88oW3Y2LjimVpFCF392jeqqtsTtuOwmtZnD7uuu9l4ZXiYPFX69n+CfqCz7BenMzl+c+XXmuZgP4MvN9s1yhtjxVxaon1Qntx0T9BgECINBoIKhgWbuyd4v1DQk/Kgi4PF/w3sQ5c7SJngFQAAAABJRU5ErkJggg==") 0 0, auto !important;}</style></head><body><span><link href="./Mi Paraná_files/style2.css" rel="stylesheet">
+                         <link href="./Mi Paraná_files/style.css" rel="stylesheet">
+                        <link href="./Mi Paraná_files/style2(1).css" rel="stylesheet">
+                        </span>
+
+<script src="./Mi Paraná_files/jscolor.js.descarga"></script>
+
+<link type="text/css" href="./Mi Paraná_files/bootstrap-timepicker.min.css" rel="stylesheet">
+<script type="text/javascript" src="./Mi Paraná_files/bootstrap-timepicker.min.js.descarga"></script>
+
+
+<!-- Bootstrap JavaScript -->
+
+<script src="./Mi Paraná_files/bootstrap.min.js.descarga"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="./Mi Paraná_files/metisMenu.min.js.descarga"></script>
+<!-- Menu Lateral-->
+<script src="./Mi Paraná_files/menu.js.descarga"></script>
+
+<script src="./Mi Paraná_files/bootstrap.trilogica.js.descarga"></script>
+
+
+<link href="./Mi Paraná_files/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="./Mi Paraná_files/moment-with-locales.js.descarga"></script>
+<script src="./Mi Paraná_files/bootstrap-datetimepicker.js.descarga"></script>
+
+
+<span><script src="./Mi Paraná_files/main.js.descarga"></script>
+                        <script src="./Mi Paraná_files/main(1).js.descarga"></script></span>
+
+
+<link rel="icon" type="image/ico" href="https://mi.parana.gob.ar/main/imagenes/fav.ico">
+
+<script src="./Mi Paraná_files/bootstrap3-typeahead.min.js.descarga"></script>
+<script src="./Mi Paraná_files/bootstrap-typeahead.ci.js.descarga"></script>
+
+<script type="text/javascript" src="./Mi Paraná_files/highcharts.js.descarga"></script>
+<script type="text/javascript" src="./Mi Paraná_files/highcharts-3d.js.descarga"></script>
+<script type="text/javascript" src="./Mi Paraná_files/funnel.js.descarga"></script>
+<script type="text/javascript" src="./Mi Paraná_files/data.js.descarga"></script>
+<script type="text/javascript" src="./Mi Paraná_files/drilldown.js.descarga"></script>
+<script type="text/javascript" src="./Mi Paraná_files/wordcloud.js.descarga"></script>
+
+
+
+    <link rel="stylesheet" href="./Mi Paraná_files/jquery.mCustomScrollbar.min.css">
+    <script src="./Mi Paraná_files/jquery.mCustomScrollbar.concat.min.js.descarga"></script>
+    <script type="text/javascript" src="./Mi Paraná_files/mCustomScrollbar.js.descarga"></script>
+
+
+
+<script type="text/javascript" src="./Mi Paraná_files/cliente.js.descarga"></script>
+
+
+<span><style type="text/css">
+#botmuni{ position: fixed; bottom: 0; width: 140px;height: 140px;padding-bottom: 16px; z-index:2000;right:0;}
+</style></span>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <script type="text/javascript">
+        function verarchivo(tiar_id) {
+            $i("tiar_id").value = tiar_id;
+            setLoading(true);
+            $i("btnCargar").click();
+            $("#modal_archivo").modal("show");
+        }
+        function validararchivo() {
+            if ($i("file").value == "") {
+                swal({
+                    title: 'Atención', text: "Debe elegir un archivo", type: 'warning'
+                });
+                return false;
+            }
+            setLoading(true);
+            return true;
+        }
+    </script>
+<title>
+
+</title>
+
+ <form name="frm" method="post" action="https://mi.parana.gob.ar/misdatos.aspx" id="frm" enctype="multipart/form-data">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['frm'];
+if (!theForm) {
+    theForm = document.frm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./Mi Paraná_files/WebResource.axd" type="text/javascript"></script>
+
+
+<script src="./Mi Paraná_files/ScriptResource.axd" type="text/javascript"></script>
+<script src="./Mi Paraná_files/ScriptResource(1).axd" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="84986418">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="JZSwm8xss/WDiY0DNwyGfByNmqOPJm4jaNuJjiDvMtri4b+/CSJG8DAWVJuM1g2Bx1Ce5xnIXU88oeTALIbUA3licOt/1ViPB5X6ezy7AnLTjEPh/AKHplcUQNr6XCTZPMsFECHFXnB8MA4OdHafku+VBONcN7EX4WjIGHFW+WdrY3Iod20nIjXs9yZdOCTcIvchaVocN393ngPoSpRpcAkD/9LD3nK4hfrSg8YFLEeXBkssDitHYKkQjmN1qxCl8gRRIO8NT7kXzAG/Dx6vy4/07t0LE7pWPtN4wYVn7H4=">
+</div>
+       <div class="wrapper">          
+            <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('menuvisitante_ctrl$sm', 'frm', ['tmodal_archivo',''], [], ['btnGuardarArchivo',''], 90, '');
+//]]>
+</script>
+
+
+<!-- Sidebar -->
+<div id="sidebarParent">
+    <nav id="sidebar" class="mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar active" style="overflow: visible;"><div id="mCSB_1" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+        
+            <div class="sidebar-header position-relative">
+                <div class="d-flex align-items-center justify-content-end">
+                    <i class="fa fa-times ocultarcerrar" onclick="CerrarSidebar();" aria-hidden="true"></i>
+                </div>
+                <div class="logo_municipio_menu">
+                    <img src="./Mi Paraná_files/logomuniblanco.png" id="menuvisitante_ctrl_imglogomuni_logueado" border="0" class="logomuniarriba_menu_logueado mCS_img_loaded">      
+                </div>
+                <div class="persona_logueada">
+                     <span id="menuvisitante_ctrl_per_apellido" class="d-flex">MELO</span><span id="menuvisitante_ctrl_per_nombre" class="d-flex">LUCAS</span>
+                </div>
+               
+
+            </div>
+            <div class="contenedormenuvisitante">
+                <div onclick="redirect(&#39;inicio.aspx&#39;);" class="menuvisitante">
+                    <i class="fa fa-home " aria-hidden="true" title="Inicio"></i>&nbsp;&nbsp;Inicio    
+                </div>
+                <div onclick="redirect(&#39;default.aspx&#39;);" class="menuvisitante">
+                    <i class="fa fa-tasks " aria-hidden="true" title="Servicios y trámites"></i>&nbsp;&nbsp;Servicios
+                </div>
+                <div onclick="redirect(&#39;misdatos.aspx&#39;);" class="menuvisitante">
+                    <i class="fa fa-address-card " aria-hidden="true" title="Mis datos"></i>&nbsp;&nbsp;Mis Datos
+                </div>
+                <div id="menuvisitante_ctrl_btnCalendario" onclick="redirect(&#39;calendario.aspx&#39;);" class="menuvisitante">
+                    <i class="fa fa-calendar " aria-hidden="true" title="turnos"></i>&nbsp;&nbsp;Mis Turnos 
+                </div>
+                <div onclick="redirect(&#39;/login.aspx?logOff=yes&#39;);" class="menuvisitante">
+                    <i class="fa fa-sign-out " aria-hidden="true" title="Salir"></i>&nbsp;&nbsp;Salir
+                </div>
+            </div>
+
+        
+        
+
+    </div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; height: 0px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></nav>
+</div>
+
+    <div class="container">
+        
+
+<div class="row ">
+    <div class="col-12 p-3 ctrl_arriba ">
+        <img src="./Mi Paraná_files/logo.png" id="arribactrl2_imglogo" border="0" class="logosistema" onclick="redirect(&#39;/&#39;);">
+        <img src="./Mi Paraná_files/logomuniblanco.png" id="arribactrl2_imglogomuni" border="0" class="logomuniarriba" onclick="redirect(&#39;https://www.parana.gob.ar/&#39;);">
+        <div class="float-right h-100 d-flex align-items-center justify-content-center">
+            <div id="arribactrl2_div_log_boton" class="usu_menu">
+                <div id="arribactrl2_ico_badge" class="ico_badge" onclick="toogle_notificaciones();">
+                    <i id="arribactrl2_bell" class="fa fa-bell-o bell-m" aria-hidden="true"></i>
+                    
+                </div>
+                <div id="arribactrl2_div_notificaciones" class="div_notificaciones" style="display:none;">
+                    <div class="notificaciones_header">
+                        Notificaciones
+                        <i class="fa fa-times notificacion-cerrar" onclick="toogle_notificaciones();"></i>
+                    </div>
+                    
+                    <div class="notificaciones_footer">                        
+                        <i class="fa fa-times notificacion-cerrar" onclick="toogle_notificaciones();"></i>
+                    </div>
+                </div>
+                <div id="arribactrl2_ico_usuario" class="ico_usuario item_usu_menu">LM</div>
+               
+            </div>
+            <button type="button" id="sidebarCollapse" class="btn btn-secondary ml-2">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="headerline">
+    </div>
+</div>
+
+
+<div class="row mt-2 mt-xl-1 ">
+    <div id="arribactrl2_div_buscador" class="col-6 col-lg-6">
+        <div class="input-group">
+            <input name="arribactrl2$buscador" type="text" id="arribactrl2_buscador" class="form-control buscador" placeholder="Buscar trámites y servicios">
+            <div class="input-group-prepend">
+                <input type="submit" name="arribactrl2$btnBuscar" value="" onclick="buscarservicios();return false;" id="arribactrl2_btnBuscar" title="Buscar" class="btn btn-sistema ">
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- LOADING -->
+<div id="loading" class="containerLoading no-visible">
+    <div class="parentImageLoading">
+        <div class="vMiddle dTableCell">
+            <div class="imageLoading"></div>
+        </div>
+    </div>
+</div>
+<!-- FIN LOADING  -->
+
+<div id="modal" class="modal fade" role="dialog" style="z-index: 5000;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title" id="titulo_modal"></h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body modal-ventana-body">
+                <iframe id="arribactrl2_ifrm" frameborder="0" style="background-color: transparent; width: 100%; height: 550px !important;" allowtransparency="" scrolling="no" src="./Mi Paraná_files/saved_resource.html"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+            <div class="row">
+                <div class="col-12 titulo mt-2 mb-2">
+                   <span id="CON_NOMBRE_PERFIL">Datos de Mi Cuenta</span>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-12 aRight mb-2">
+                      <i class="fa fa-pencil menuusuario" aria-hidden="true" onclick="redirect(&#39;editarmisdatos.aspx&#39;);" title="Actualizar mis datos"></i>
+                      <i class="fa fa-key menuusuario" aria-hidden="true" onclick="redirect(&#39;cambiar_clave.aspx&#39;);" title="Cambiar mi clave"></i>
+                    <i id="div_alertas" class="fa fa-bell-o menuusuario" aria-hidden="true" onclick="redirect(&#39;alertas.aspx&#39;);" title="Mis alertas"></i>
+                    
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-12 col-xl-6 ">                
+                    <div class="card ">
+                        <div class="card-header">Datos Personales</div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div id="div_foto_selfie" class="col-4 mt-2" onclick="tomarselfie();" style="cursor:pointer;">
+                                    <div id="rese_imagen" class="selfie_chica" style="background-image:url(/custom/imagenes/M.jpg);"></div>
+                                    
+                                    <div id="div_pedido_selfie" class="text-danger text-center font-weight-bold">Actualice su identidad para validar su cuenta</div>
+                                    
+                                </div>
+                                <div id="div_ficha_datos" class="col-8">
+                                      <div class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            DNI:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            <span id="per_dni"> 43.319.405</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="div_cuil" class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            CUIL:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            <span id="per_cuil1">20</span>-<span id="per_cuil2">43319405</span>-<span id="per_cuil3">5</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             
+                             <div class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            Apellido:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            <span id="per_apellido">MELO</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            Nombre:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            <span id="per_nombre">LUCAS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                         
+
+                            <div class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            Fecha Nac:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            <span id="per_fechanac">16/01/2002</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <div class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            Género:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            <span id="sex_descripcion">MASCULINO</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="div_renaper_aprobado" class="row">
+                                <div class="col-12 text-success aCenter font-weight-bold">Sus datos han sido validados</div>
+                            </div>
+
+                             
+                                </div>
+                            </div>
+                          
+
+                            <div class="row mt-3">
+                                <div class="col-12 valor">Datos de Contacto</div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            Celular:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            
+                                            <span id="per_celular">3436958845</span><br>
+                                            <span id="per_celular_validado" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12  mb-1">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-4 text-xl-right text-nowrap">
+                                            Email:
+                                        </div>
+                                        <div class="col-12 col-xl-8 valor">
+                                            
+                                            <span id="per_mail" class="text-success">melocomerciante@gmail.com</span><br>
+                                            <span id="per_mail_validado" class="text-success"> su correo ya está validado </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-6 ">
+                    <div class="card">
+                        <div class="card-header">
+                             Residencia
+                                 
+                             <input type="submit" name="btnMapaGM" value="" onclick="verMapa(0,1); return false;" id="btnMapaGM" title="Ubicar en el mapa - Google Maps" class="btn btn-success btn-sm mr-2 fRight">    
+                        </div>
+                        <div class="card-body pt-0">
+                              <div class="row">
+                                    <input type="hidden" name="per_latitud" id="per_latitud" value="-31.7444500000">
+                                    <input type="hidden" name="per_longitud" id="per_longitud" value="-60.5065400000">
+                                    
+
+                                     <div id="div_provincia" class="col-12">
+                                        <div class="row ">    
+                                            <div class="col-12  col-xl-4 text-xl-right">
+                                                Provincia:
+                                            </div>
+                                            <div class="col-12 col-xl-8 valor">
+                                                <span id="prov_descripcion">Entre Ríos</span>
+                                            </div>
+                                        </div>
+                                    </div>   
+
+                                    <div id="div_municipio" class="col-12 ">
+                                        <div class="row ">    
+                                            <div class="col-12  col-xl-4 text-xl-right ">
+                                                Municipio:
+                                            </div>
+                                            <div class="col-12 col-xl-8 valor">
+                                                <span id="mun_descripcion">Parana</span>
+                                            </div>
+                                        </div>
+                                    </div>   
+
+                                    
+
+                                    <div id="div_barrio" class="col-12 ">
+                                        <div class="row ">    
+                                            <div class="col-12  col-xl-4 text-xl-right ">
+                                                Barrio:
+                                            </div>
+                                            <div class="col-12 col-xl-8 valor">
+                                                <span id="bar_descripcion">19 DE SEPTIEMBRE - ESTE</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="div_ugc" class="col-12 ">
+                                        <div class="row ">    
+                                            <div class="col-12  col-xl-4 text-xl-right ">
+                                                <span id="lblugc_nombre">Delegación</span>:
+                                            </div>
+                                            <div class="col-12 col-xl-8 valor">
+                                                <span id="ugc_descripcion">UM 4 - NORESTE</span>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id="div_direccion" class="col-12 ">
+                                        <div class="row ">    
+                                            <div class="col-12  col-xl-4 text-xl-right ">
+                                                Dirección:
+                                            </div>
+                                            <div class="col-12 col-xl-8 valor d-inline">
+                                                <span id="cal_descripcion" style="background: rgb(255, 255, 255);">JUAN VUCETICH</span>
+                                                <span id="per_altura">789</span>
+                                                <span id="per_piso">Depto:1</span>
+                                                <span id="per_depto"></span>
+                                           
+                                            </div>
+                                            <div id="div_entre_calleslbl" class="col-12  col-xl-4 text-xl-right">
+                                                Entre calles:
+                                            </div>
+                                            <div id="div_entre_calles" class="col-12 col-xl-8 valor d-inline">
+                                                <span id="cal_descripcion_entre1" style="background: rgb(255, 255, 255);">Ayacucho</span>
+                                                <span id="cal_descripcion_entre2" style="background: rgb(255, 255, 255);"> y JOSE PEDRO VARELA</span>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+
+                                    
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div id="div_niveles" class="col-12 col-xl-6 mt-2">
+                    <div class="card">
+                        <div class="card-header">Su nivel de acceso es: <span id="lblniv_nombre" class="destacado destacadoheader">Nivel 2</span></div>
+                        <div class="card-body pt-0">
+                            
+                                    <div id="rpt_niveles_ctl00_div_nivel" class="row">
+                                        <div class="col-12">
+                                             <li>Nivel 1</li>
+                                        </div>
+                                        <div class="col-12 text-muted">
+                                             Datos validados
+                                        </div>
+                                    </div>
+                                
+                                    <div id="rpt_niveles_ctl01_div_nivel" class="row destacado">
+                                        <div class="col-12">
+                                             <li>Nivel 2</li>
+                                        </div>
+                                        <div class="col-12 text-muted">
+                                             E-mail validado
+                                        </div>
+                                    </div>
+                                
+                                    <div id="rpt_niveles_ctl02_div_nivel" class="row">
+                                        <div class="col-12">
+                                             <li>Nivel 3</li>
+                                        </div>
+                                        <div class="col-12 text-muted">
+                                             DNI Validado
+                                        </div>
+                                    </div>
+                                
+                                    <div id="rpt_niveles_ctl03_div_nivel" class="row">
+                                        <div class="col-12">
+                                             <li>Nivel 4</li>
+                                        </div>
+                                        <div class="col-12 text-muted">
+                                             Validación de identidad a través de SID
+                                        </div>
+                                    </div>
+                                
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-6 mt-2 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Mis familiares vinculados.
+                             <i class="fa fa-pencil menuusuario fRight" aria-hidden="true" onclick="redirect(&#39;lisfamiliares.aspx&#39;);" title="Actualizar mi grupo familiar"></i>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div id="div_sin_declarar_grupo" class="row">
+                                <div class="col-12 text-danger">
+                                    No ha declarado su grupo familiar
+                                </div>
+                            </div>
+                             
+                          
+                        </div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+
+                 
+
+                
+				
+<div id="div_footer" class="w-100">
+    <span id="abajoctrl_textoFooter"></span>
+</div>
+<span><div id="botmuni">
+<a href="https://go.parana.gob.ar/miparana" target="_blank">
+<img src="./Mi Paraná_files/botmuni.png" border="0" style="width:130px">
+</a>
+</div>
+</span>
+<!--Start of Tawk.to Script-->
+
+ 
+            </div>
+        
+    </div>
+  </div>
+    <div id="modal_archivo" class="modal fade" role="dialog">
+	
+              <input type="hidden" name="tiar_id" id="tiar_id">
+        
+              <input type="submit" name="btnCargar" value="" id="btnCargar" class="d-none">
+              <div class="modal-dialog">    
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="titulo_archivos" class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>        
+                    </div>
+                    <div class="modal-body modal-ventana-body">             
+                       <div class="row">
+                            <div class="col-12">
+                               <span id="tiar_detalle"></span>
+                            </div>
+                            <div class="col-12 aCenter mt-2 mb-2">
+                               <input type="file" name="file" id="file" class="btn btn-default" style="border-color: #ccc; display: block;">
+                               
+                               
+                            </div>
+                            
+                            
+                            
+                       </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" name="btnGuardarArchivo" value="Enviar " onclick="validararchivo();" id="btnGuardarArchivo" class="btn btn-success">                        
+                    </div>
+                </div>
+             </div>
+        
+</div>
+
+ </form>
+<script defer="" src="./Mi Paraná_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8f1736355a69f237&quot;,&quot;version&quot;:&quot;2024.10.5&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;40560b66fbfa478295aceba2b92dd6b0&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}}}" crossorigin="anonymous"></script>
+
+
+</body></html>

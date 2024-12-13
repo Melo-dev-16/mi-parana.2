@@ -1,0 +1,145 @@
+/*
+    #   Extension javascript para bootstrap
+    #   Requiere Jquery 1.11.3
+    #   31/05/2017
+*/
+
+//  Modal
+var tm = {
+    id: "_modal" + Math.random().toString().split(".")[1],
+    title: '',
+    src: "",
+    headerClose: true,
+    footerClose: true,
+    mode : 'large', // normal,large,small
+    update: true,
+    active: false,
+    execJs: 'document.getElementById(tm.id + "_object").style.height = document.getElementById(tm.id + "_object").contentDocument.body.scrollHeight + "px"',
+    maqueta : function(){
+        var _tmp,
+            parentnode = this,
+            _maqueta = {
+                fade: '<div class="modal fade" id="' + parentnode.id + '" tabindex="-1" role="dialog">__dialog__</div>',
+                dialog: '<div class="modal-dialog ' + (parentnode.mode == "large" ? 'modal-lg' : "") + (parentnode.mode == "small" ? 'modal-sm' : "") + '" role="document">__content__</div>',
+                content: '<div class="modal-content">__header____body____footer__</div>',
+                header: '<div class="modal-header">' + (parentnode.headerClose ? '<button id="'+ parentnode.id + '_hclose" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>' : '') + '<h4 class="modal-title" id="' + parentnode.id + '_label">' + parentnode.title + '</h4></div>',
+                body: '<div class="modal-body">__bodycontent__</div>',
+                footer: '<div class="modal-footer">' + (parentnode.footerClose ? '<button id="' + parentnode.id + '_fclose" type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>' : '') + '</div>',
+                object: '<object id="' + parentnode.id + '_object" type="text/html" data="' + this.src + '" style="position:relative;display:inline-block;width:100%;overflow-y:hidden;" scrolling=false></object>',
+            };
+        _tmp = _maqueta.fade;
+        _tmp = _tmp.replace("__dialog__", _maqueta.dialog);
+        _tmp = _tmp.replace("__content__",_maqueta.content);
+        _tmp = _tmp.replace("__header__", _maqueta.header);
+        _tmp = _tmp.replace("__body__", _maqueta.body);
+        _tmp = _tmp.replace("__footer__", _maqueta.footer);
+        _tmp = _tmp.replace("__bodycontent__", (this.src = "" ? "" : _maqueta.object));
+        return _tmp;
+    }
+}
+
+tm.options = function (object) {
+    if(object.title) this.title = object.title;
+    if(object.src) this.src = object.src;
+    if(object.headerClose != null) this.headerClose = object.headerClose;
+    if(object.footerClose != null) this.footerClose = object.footerClose;
+    if (object.mode) this.mode = object.mode;
+    this.update = true;
+}
+
+tm.show = function (src) {
+    var elem = document.getElementById(this.id);
+
+    if (elem && this.update) {
+        elem.parentNode.removeChild(elem);
+        $("body").append(this.maqueta());
+        this.update = false;
+    } else if (!elem) {
+        $("body").append(this.maqueta());
+        $("#" + tm.id).on("hidden.bs.modal", function () {
+            tm.setSource("");
+        });
+    }
+
+    if (this.src != src) {
+        this.setSource(src);
+    }
+
+    $('#' + this.id).modal();
+        
+    var fin = 0;
+    var timer = setInterval(function () {
+        if (document.getElementById(tm.id + "_object")) {
+            if (fin == 5) {
+                clearInterval(timer);
+                fin = 0;
+            }
+            try {eval(tm.execJs);} catch (e) {}
+            fin++;
+
+        }
+    }, 1000)
+
+}
+
+tm.helpOptions = function () {
+    var object = {
+        title: 'String',
+        src: 'String',
+        headerClose: 'Boolean',
+        footerClose: 'Boolean',
+        mode: 'String (large/normal/small)'
+    }
+    return object;
+}
+
+tm.getOptions = function () {
+    var object = {
+        title: this.title,
+        src: this.src,
+        headerClose: this.headerClose,
+        footerClose: this.footerClose,
+        mode: this.mode
+    }
+    return object;
+}
+tm.setTitle = function (title) {
+    this.title = title;
+    document.getElementById(tm.id + "_label").innerHTML = this.title;
+}
+tm.setSource = function (src) {
+    this.src = src;
+    document.getElementById(tm.id + "_object").data = src;
+}
+tm.showHeaderClose = function () {
+    this.headerClose = true;
+    document.getElementById(tm.id + "_hclose").style.display = "block";
+}
+tm.showFooterClose = function () {
+    this.footerClose = true;
+    document.getElementById(tm.id + "_fclose").style.display = "inline-block";
+}
+tm.hideHeaderClose = function () {
+    this.headerClose = false;
+    document.getElementById(tm.id + "_hclose").style.display = "none";
+}
+tm.hideFooterClose = function () {
+    this.footerClose = false;
+    document.getElementById(tm.id + "_fclose").style.display = "none";
+}
+tm.setHeight = function (height) {
+    if (!isNaN(height)) height = height + 'px';
+    document.getElementById(tm.id + "_object").style.height = height;
+}
+tm.setWidth = function (width) {
+    if (!isNaN(width)) width = width + 'px';
+    document.getElementById(tm.id + "_object").style.width = width;
+}
+tm.close = function () {
+    try {
+        document.getElementById(tm.id + "_fclose").click();
+    } catch (e) {
+        document.getElementById(tm.id + "_hclose").click();
+    }
+}
+// Fin Modal

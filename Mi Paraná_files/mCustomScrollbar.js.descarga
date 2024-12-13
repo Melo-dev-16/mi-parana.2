@@ -1,0 +1,46 @@
+﻿$(document).ready(function () {
+
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+
+    $('#sidebarCollapse').on('click', function () {
+        // open or close navbar
+        $('#sidebar').toggleClass('active');
+        // close dropdowns
+        $('.collapse.in').toggleClass('in');
+        // and also adjust aria-expanded attributes we use for the open/closed arrows
+        // in our CSS
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+
+        AdjustSidebar();
+    });
+
+    $(".dropdown-toggle").click(function () {
+        console.log($(this).next()[0]);
+        if ($(this).next()[0].classList.contains('collapsing')) {
+            $(this).next()[0].removeAttribute('style');
+            $(this).next()[0].classList.remove('collapsing');
+            $(this).next()[0].classList.add('collapse');
+        } else {
+            $(this).next()[0].setAttribute('style', 'display: initial; height: 0px;');
+            $(this).next()[0].classList.remove('collapse');
+            $(this).next()[0].classList.add('collapsing');
+        }
+    });
+
+    AdjustSidebar();
+
+});
+
+function CerrarSidebar() {
+    $("#sidebarCollapse").click();
+}
+
+function AdjustSidebar() {
+    //if (!(document.getElementById("sidebar").classList.contains("active")) && window.innerWidth < 1650) {
+    //    //document.getElementById("sidebar").setAttribute("style", "position: sticky;")
+    //} else {
+    //    //document.getElementById("sidebar").removeAttribute("style");
+    //}        
+}

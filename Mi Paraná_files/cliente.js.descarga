@@ -1,0 +1,1023 @@
+﻿function verificardni() {
+    if ($i("per_dni").value != "" && $i("per_dni").value != $i("per_dni_ant").value ) {
+        $i("btnverificardni").click();
+    }
+}
+
+function verificarcuil() {
+    var verificar = false;
+  
+    if ($i("per_cuil1").value != "" && $i("per_cuil1").value != $i("per_cuil1_ant").value) {
+        verificar = true;
+        $i("per_cuil1_ant").value = "";
+    }
+    if ($i("per_cuil2").value != "" && $i("per_cuil2").value != $i("per_cuil2_ant").value) {
+        verificar = true;
+        $i("per_cuil2_ant").value = "";
+    }
+    if ($i("per_cuil3").value != "" && $i("per_cuil3").value != $i("per_cuil3_ant").value) {
+        verificar = true;
+        $i("per_cuil3_ant").value = "";
+    }
+    if (verificar && $i("per_cuil1").value != "" && $i("per_cuil2").value != "" && $i("per_cuil3").value != "") {
+        $i("btnverificarcuil").click();
+    }
+}
+
+function verificarcuit() {
+    var valor_nuevo = false;
+    if ($i("emp_cuit1").value != "" && $i("emp_cuit1").value != $i("emp_cuit1_ant").value) valor_nuevo = true;
+    if ($i("emp_cuit1").value != "" && $i("emp_cuit2").value != $i("emp_cuit2_ant").value) valor_nuevo = true;
+    if ($i("emp_cuit3").value != "" && $i("emp_cuit3").value != $i("emp_cuit3_ant").value) valor_nuevo = true;
+    if (valor_nuevo && $i("emp_cuit1").value != "" && $i("emp_cuit2").value != "" && $i("emp_cuit3").value != "") {
+        setLoading(true);
+        $i("btnverificarcuit").click();
+    }
+}
+
+
+$(document).ready(function () {
+    iniciargenerico(); 
+    setearpantalla();    
+    seteomenucliente();
+    iniciarespecifico();
+    try {
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(postbackasync_general);
+    } catch (err) {
+
+    }
+});
+
+function seteomenucliente() {
+  
+    if ($("#sidebar").length > 0) {
+       
+      
+        var windowWidth = $(window).width();
+       // if (windowWidth <= 768) {
+        
+        if (windowWidth <= 770) {
+           
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+            //$('#sidebar').toggleClass('active');
+           
+            $("#sidebarCollapse").click();
+        }
+    }
+   
+
+  
+
+    $('#dismiss, .overlay').on('click', function () {       
+        $('#sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+              
+    });
+
+    //$('.ico_usuario').on('click', function () {
+    //    redirect('misdatos.aspx');
+    //});
+}
+
+function postbackasync_general(sender, args) {
+    iniciargenerico();
+    setearpantalla();
+    iniciarespecifico();
+    setLoading(false);
+}
+
+//funcion para sobreescribir en los aspx
+function iniciarespecifico() {}
+
+function setearpantalla() {       
+    if ($i("per_dni") != null && $i("per_dni_ant")!=null) {
+        if ($i("per_dni").value != "" && $i("per_dni").value == $i("per_dni_ant").value && !$i("per_dni").disabled) {
+            $i("per_dni").style.background = "#e2edcf";
+        }
+    } 
+    //if ($i("per_cuil1") != null && $i("per_cuil1_ant") != null) {
+    //    $i("per_cuil1").style.background = "#ffffff";
+    //    $i("per_cuil3").style.background = "#ffffff";
+    //    var verificado = true;
+    //    if ($i("per_cuil1").value == "" || $i("per_cuil2").value == "" || $i("per_cuil3").value == "") {
+    //        verificado = false;
+    //    }
+    //    if ($i("per_cuil1").value != "" && $i("per_cuil1").value != $i("per_cuil1_ant").value && !$i("per_cuil1").disabled) {
+    //        verificado = false;
+    //    }
+    //    if ($i("per_cuil2").value != "" && $i("per_cuil2").value != $i("per_cuil2_ant").value ) {
+    //        verificado = false;
+    //    }
+    //    if ($i("per_cuil3").value != "" && $i("per_cuil3").value != $i("per_cuil3_ant").value && !$i("per_cuil3").disabled) {
+    //        verificado = false;
+    //    }
+    //    if (verificado) {
+    //        $i("per_cuil1").style.background = "#e2edcf";
+    //        $i("per_cuil3").style.background = "#e2edcf";
+    //    }
+    //} 
+    wscalle($i("cal_descripcion"), true);
+    wscalle($i("cal_descripcion_entre1"));
+    wscalle($i("cal_descripcion_entre2"));
+    wsactividad($i("act_descripcion"));
+}
+
+function verbases() {
+    $("#modal_bases").modal("show");
+}
+
+
+function verificartramite() {
+    if ($i("PER_TRAMITE_DNI") != null) {
+        if ($i("PER_TRAMITE_DNI").value != "" && $i("PER_TRAMITE_DNI").value.length!=11) {
+            swal({
+                title: 'Atención', text: "El nro de trámite debe tener 11 dígitos", type: 'warning'
+            });
+           
+        }
+    }
+}
+
+function validarnuevo() {
+    setLoading(false);
+    if ($i("per_clave").value.length < 8) {       
+        swal({
+            title: 'Atención', text: "la contraseña debe tener al menos 8 caracteres", type: 'warning'
+        });
+     
+        return false;
+    }    
+    if ($i("CON_CALLE_OBLIGATORIA_DEL_CALLEJERO") != null) {
+       
+        if ($i("CON_CALLE_OBLIGATORIA_DEL_CALLEJERO").value == "1" && $i("cal_id").value=="") {
+            swal({
+                title: 'Atención', text: "Debe elegir una calle del desplegable (el campo debe quedar en color verde).", type: 'warning'
+            });
+            $i("cal_descripcion").focus();
+            $i("cal_descripcion").select();          
+            return false;
+        }
+    }
+    if ($i("CON_COORDENADAS_OBLIGATORIAS") != null) {
+        if ($i("CON_COORDENADAS_OBLIGATORIAS").value == "1" && $i("per_altura").value=="") {
+            swal({
+                title: 'Atención', text: "Debe ingresar la altura de su dirección para luego calcular su ubicación en el mapa", type: 'warning'
+            });
+            $i("per_altura").focus();
+            $i("per_altura").select();
+            return false;
+        }
+        if ($i("CON_COORDENADAS_OBLIGATORIAS").value == "1" && $i("per_latitud").value == "") {
+            swal({
+                title: 'Atención', text: "Debe visualizar el mapa para calcular que podamos ubicar la dirección", type: 'warning'
+            });
+            if ($i("btnMapaGM") != null) {
+                $i("btnMapaGM").click();
+            }
+            if ($i("btnMapaOS") != null) {
+                $i("btnMapaOS").click();
+            }           
+
+            return false;
+        }
+    }
+    $i("per_clave_enc").value = hex_md5($i("per_clave").value);  
+    setLoading(true);
+    return true;
+}
+
+
+function validarempresa() {
+    setLoading(false);   
+    if ($i("CON_CALLE_OBLIGATORIA_DEL_CALLEJERO") != null) {
+
+        if ($i("CON_CALLE_OBLIGATORIA_DEL_CALLEJERO").value == "1" && $i("cal_id").value == "") {
+            swal({
+                title: 'Atención', text: "Debe elegir una calle del desplegable (el campo debe quedar en color verde).", type: 'warning'
+            });
+            $i("cal_descripcion").focus();
+            $i("cal_descripcion").select();
+            return false;
+        }
+    }
+    if ($i("CON_COORDENADAS_OBLIGATORIAS") != null) {
+        if ($i("CON_COORDENADAS_OBLIGATORIAS").value == "1" && $i("emdi_altura").value == "") {
+            swal({
+                title: 'Atención', text: "Debe ingresar la altura de su dirección para luego calcular su ubicación en el mapa", type: 'warning'
+            });
+            $i("per_altura").focus();
+            $i("per_altura").select();
+            return false;
+        }
+        if ($i("CON_COORDENADAS_OBLIGATORIAS").value == "1" && $i("emdi_latitud").value == "") {
+            swal({
+                title: 'Atención', text: "Debe visualizar el mapa para calcular que podamos ubicar la dirección", type: 'warning'
+            });
+            if ($i("btnMapaGM") != null) {
+                $i("btnMapaGM").click();
+            }
+            if ($i("btnMapaOS") != null) {
+                $i("btnMapaOS").click();
+            }
+            return false;
+        }
+    }
+  
+    setLoading(true);
+    return true;
+}
+
+function validareditar() {
+    
+    return true;
+}
+
+function suscribirme(ser_id) {
+    var url = "suscripcion.aspx?ser_id=";
+    if ($i("ser_id") != null) {
+        url = url + $i("ser_id").value;
+    }
+    if (ser_id != null) {
+        url = url + ser_id;
+    }
+    window.location = url;
+}
+
+function actualizardependencia(ctrl) {
+    $i("valor_seleccionado").value = ctrl.value;
+    var dependencias = $(".actualiza", $(ctrl).parent());
+    for (var i = 0; i < dependencias.length ; i++) {
+        var div_combo = $('[data-id=' + dependencias[i].dataset.upd + ']')[0];     
+        $i("boton_presionado").value = $(".btnactualizar", div_combo)[0].id;
+        $(".btnactualizar", div_combo)[0].click();
+    }
+}
+
+function activagrupo(ctrl) {
+    var dependencias = $(".activa_grupo",$(ctrl).parent());
+    for (var i = 0; i < dependencias.length; i++) {
+      
+        var div_grupo = $('[data-id=' + dependencias[i].dataset.upd + ']')[0];
+        var hi_grupo_activo = $(".hi_grupo_activo", $(div_grupo))[0];
+
+        console.log(div_grupo);
+
+        if (div_grupo.dataset.valor_depende == ctrl.value) {
+            div_grupo.style.display = "unset";
+            hi_grupo_activo.value = 1;
+            var controles_grupo = $("[novalidate]", $(div_grupo));
+            for (var r = 0; r < controles_grupo.length; r++) {
+                controles_grupo[r].removeAttribute("novalidate", "");
+                controles_grupo[r].setAttribute("required", "");
+            }
+        } else {
+            div_grupo.style.display = "none";
+            hi_grupo_activo.value = 0;
+            var controles_grupo = $("[required]", $(div_grupo));
+            for (var r = 0; r < controles_grupo.length; r++) {
+                controles_grupo[r].removeAttribute("required", "");
+                controles_grupo[r].setAttribute("novalidate", "");
+            }
+        }
+      
+    }
+}
+
+function leer(men_id, cell) {
+   
+    var celdas = $("td", $(cell).parent().parent());
+    celdas.removeClass("font-weight-bold");
+    $i("men_id").value = men_id;
+    setLoading(true);
+    $i("btnCargar").click();
+    $("#modal_mensaje").modal("show");
+}
+
+function redactar() {
+    $("#modal_redactar").modal("show");
+    
+}
+
+function validarmensaje() {
+    if ($i("men_titulo").value=="") {
+        swal({
+            title: 'Atención', text: "Debe ingresar un título para el mensaje", type: 'warning'
+        });
+        return false;
+    }    
+    if ($i("men_detalle").value == "") {
+        swal({
+            title: 'Atención', text: "Debe ingresar un mensaje", type: 'warning'
+        });
+        return false;
+    }
+    
+    setLoading(true);
+    return true
+}
+
+
+function buscarservicios() {
+    var palabras = "";
+    if ($i("arribactrl_buscador")!=null) {
+        if ($i("arribactrl_buscador").value == "") {
+            swal({
+                title: 'Atención', text: "Debe ingresar al menos una palabra para buscar", type: 'warning'
+            });
+            return;
+        }
+        palabra = $i("arribactrl_buscador").value;
+    }
+    if ($i("arribactrl2_buscador") != null) {
+        if ($i("arribactrl2_buscador").value == "") {
+            swal({
+                title: 'Atención', text: "Debe ingresar al menos una palabra para buscar", type: 'warning'
+            });
+            return;
+        }
+        palabra = $i("arribactrl2_buscador").value;
+    }
+    
+    setLoading(true);
+    window.location = 'default.aspx?buscador=' + palabra;
+}
+
+function verservicio(ser_id,pese_id) {
+    setLoading(true);
+    var url = 'servicio.aspx?ser_id=' + ser_id;
+    if (pese_id != null && pese_id != 'undefined') {
+        url = url + '&pese_id=' + pese_id;
+    }
+    window.location = url;
+}
+
+function verrubro(rub_id) {
+    setLoading(true);
+    var url = 'rubro_padre.aspx?rub_id=' + rub_id;
+    
+    window.location = url;
+}
+
+function validaracceder(url) {
+    if ($i("ch_aceptar_bases") != null) {
+        if (!$i("ch_aceptar_bases").checked) {
+            swal({
+                title: 'Atención', text: "Debe aceptar las bases y condiciones", type: 'warning'
+            });          
+            return;
+        }
+    }
+    window.open(url);
+}
+
+function validarsuscripcion(ctrl) {
+
+    if ($i("div_ubicacion") != null) {
+        if ($i("cal_descripcion") != null) {
+            if ($i("cal_descripcion").value == "") {
+                swal({
+                    title: 'Atención', text: "Debe seleccionar una calle para luego ubicar en el mapa", type: 'warning'
+                });
+                return false;
+            }
+        }
+        if ($i("pese_altura") != null) {
+            if ($i("pese_altura").value == "") {
+                swal({
+                    title: 'Atención', text: "Debe ingresar una altura para luego ubicar en el mapa", type: 'warning'
+                });
+                return false;
+            }
+        }
+        if ($i("pese_latitud") != null) {
+            if ($i("pese_latitud").value == "") {
+                swal({
+                    title: 'Atención', text: "Debe presionar el boton del mapa para calcular las coordenadas", type: 'warning'
+                });
+                return false;
+            }
+        }
+       
+    }
+   
+ 
+   
+    if ($i("SER_PREGUNTA_CONFIRMACION") != null) {
+        if ($i("SER_PREGUNTA_CONFIRMACION").value != "") {
+            poner_loading = false;
+            swal({
+                title: "Atención", text: $i("SER_PREGUNTA_CONFIRMACION").value, type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Cancelar",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }).then(function () {
+                $i("SER_PREGUNTA_CONFIRMACION").value = "";                
+                ctrl.click();
+            });
+            return false;
+        }
+    }
+
+    if ($i("ch_aceptar_bases") != null) {
+        if (!$i("ch_aceptar_bases").checked) {
+            swal({
+                title: 'Atención', text: "Debe aceptar las bases y condiciones", type: 'warning'
+            });
+            return false;
+        }
+    }
+
+    if ($i("div_familiares_vinculados") != null) {
+        if ($(".btnfamiliarsel").length == 0) {
+            return confirm('No ha seleccionado ningún familiar para asociar.¿Es correcto ? ');
+
+        }
+    }
+
+    if (poner_loading) {
+        setLoading(true);
+    }
+    
+
+    return true;
+}
+
+var poner_loading = true;
+
+function selfam(ctrl) {
+    if (ctrl != null) {
+        var fields = $("input", $(ctrl).parent());
+        $i("fam_id").value = fields[0].value;
+        $i("valores").value = fields[1].value;
+    } else {
+        $i("fam_id").value = "";
+    }
+  
+    $i("btnCargarFamiliar").click();
+    $("#upd_familiar").modal();
+}
+    
+
+function validarfamiliar() {
+   
+    var campos_validar = $(".campofam_obligatorio");
+    for (var i = 0; i <= campos_validar.length - 1; i++) {
+        if (campos_validar[i].value == "") {
+            swal({
+                title: 'Atención', text: "El campos es obligatorio", type: 'warning'
+            });
+            campos_validar[i].focus();
+            return false;
+        }
+    }
+    var campos_familiares = $(".camposfam");
+    var valores = "";
+    for (var i = 0; i <= campos_familiares.length - 1; i++) {
+        if (i > 0) valores = valores + "|";
+        if (campos_familiares[i].value == undefined) {
+            var ctrl_options = $("input", $($(".camposfam")[0]).parent());
+            var val_options = ctrl_options[ctrl_options.length - 1].value.split("-");
+            for (var op = 0; op < ctrl_options.length - 2; op++) {
+                if (ctrl_options[op].checked) {
+                    if (valores != "") valores = valores + '-';
+                    valores = valores + val_options[op];    
+                }
+            }
+        } else {
+            valores = valores + campos_familiares[i].value;
+        }        
+    }
+
+    if ($i("SER_FECHA_NAC_MINIMA") != null && $i("fam_fechanac")!=null) {
+        if ($i("SER_FECHA_NAC_MINIMA").value != "" && $i("fam_fechanac").value=="") {
+            swal({
+                title: 'Atención', text: "El campos es obligatorio", type: 'warning'
+            });
+            $i("fam_fechanac").focus();
+            return false;
+        }
+        if ($i("SER_FECHA_NAC_MAXIMA").value != "" && $i("fam_fechanac").value == "") {
+            swal({
+                title: 'Atención', text: "El campos es obligatorio", type: 'warning'
+            });
+            $i("fam_fechanac").focus();
+            return false;
+        }
+
+        var fecnac_partes = $i("fam_fechanac").value.split('/');
+        var fn = new Date(fecnac_partes[2] + '-' + fecnac_partes[1] + '-' + fecnac_partes[0]);
+        if ($i("SER_FECHA_NAC_MINIMA").value != "") {
+            var min_partes = $i("SER_FECHA_NAC_MINIMA").value.split('/');
+            var min = new Date(min_partes[2] + '-' + min_partes[1] + '-' + min_partes[0]);
+            if (fn < min) {
+                swal({
+                    title: 'Atención', text: "El familiar tiene una edad superior a la permitida en el servicio ofrecido", type: 'warning'
+                });
+                $i("fam_fechanac").focus();
+                return false;
+            }           
+        }
+        if ($i("SER_FECHA_NAC_MAXIMA").value != "") {
+            var max_partes = $i("SER_FECHA_NAC_MAXIMA").value.split('/');
+            var max = new Date(max_partes[2] + '-' + max_partes[1] + '-' + max_partes[0]);
+            if (fn > max) {
+                swal({
+                    title: 'Atención', text: "El familiar es muy joven para participar en el servicio ofrecido", type: 'warning'
+                });
+                $i("fam_fechanac").focus();
+                return false;
+            }
+        }
+    }
+    console.log(valores);
+    $i("valores").value = valores;
+
+    return true;
+}
+
+
+function wscalle(ctrl, tomar_localidad) {
+    if (tomar_localidad == undefined) tomar_localidad = false;
+    if ($i("prov_id") != null && $i("def_prov_id") != null) {
+        if ($i("prov_id").value != $i("def_prov_id").value) {
+            return;
+        }
+    }
+    if ($i("mun_id") != null && $i("def_mun_id") != null) {
+        if ($i("mun_id").value != $i("def_mun_id").value) {
+            return;
+        }
+    }
+    if (ctrl != null) {
+        $(ctrl).prop("autocomplete", "off");
+        $(ctrl).typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url: "/wscalle.aspx",
+                    data: 'cal=' + query,
+                    dataType: "json",
+                    type: "GET",
+                    success: function (data) {
+                        result($.map(data, function (item) {
+                            return item;
+                        }));
+                    }
+                });
+            },
+            updater: function (obj) {
+               
+                typeahead_id_sel = obj.id;
+                typeahead_descripcion_sel = obj.name;
+
+                if (tomar_localidad) {
+                    if ($i("loc_id") != null && obj.loc_id != "" && obj.loc_id != "0") {
+                        $i("loc_id").value = obj.loc_id;
+                    }
+                }
+                return obj;
+            },
+            afterSelect: function (obj) {
+            
+                typeahead_id_sel = obj.id;
+                typeahead_descripcion_sel = obj.name;
+                if (tomar_localidad) {
+                    if ($i("loc_id") != null && obj.loc_id != "" && obj.loc_id != "0") {
+                        $i("loc_id").value = obj.loc_id;
+                    }
+                }
+                return obj;
+            }
+        });
+        $(ctrl).on("focus", function () {
+            typeaheadIn(this);
+        });
+        $(ctrl).on("blur", function () {
+            typeaheadOut(this);
+        });
+    }
+}
+
+
+function wsactividad(ctrl) {
+    
+    if (ctrl != null) {
+        $(ctrl).prop("autocomplete", "off");
+        $(ctrl).typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url: "/wsactividades.aspx",
+                    data: 'palabra=' + query,
+                    dataType: "json",
+                    type: "GET",
+                    success: function (data) {
+                        result($.map(data, function (item) {
+                            return item;
+                        }));
+                    }
+                });
+            },
+            updater: function (obj) {
+                console.log('updater');
+                console.log(obj);
+                typeahead_id_sel = obj.id;
+                typeahead_descripcion_sel = obj.name;
+
+              
+                return obj;
+            },
+            afterSelect: function (obj) {
+                console.log('afterSelect');
+                console.log(obj);
+                typeahead_id_sel = obj.id;
+                typeahead_descripcion_sel = obj.name;
+              
+                return obj;
+            }
+        });
+        $(ctrl).on("focus", function () {
+            typeaheadIn(this);
+        });
+        $(ctrl).on("blur", function () {
+            typeaheadOut(this);
+        });
+    }
+}
+
+
+var ctrl_typeahead = null;
+var typeahead_id_sel = "";
+var typeahead_descripcion_sel = "";
+
+function typeaheadIn(ctrl) {
+    typeahead_descripcion_sel = ctrl.value;
+    var id = $i(ctrl.id.replace("_descripcion", "_id"));
+    var ant = $i(ctrl.id + "_ant");
+    if (id != null && ant != null) {
+
+        if (id.value != "" && ctrl.value == ant.value) {
+            typeahead_id_sel = id.value;
+            ctrl.style.background = "#e2edcf";
+        }
+        ctrl_typeahead = ctrl;
+    }
+
+}
+function typeaheadOut(ctrl) {
+    if (ctrl_typeahead != null) {
+        if (ctrl.id == ctrl_typeahead.id) {
+
+            var id = $i(ctrl.id.replace("_descripcion", "_id"));
+            var ant = $i(ctrl.id + "_ant");
+
+            if (id != null && ant != null) {
+
+                if (ctrl_typeahead.value == typeahead_descripcion_sel && typeahead_id_sel != "") {
+                    ctrl.style.background = "#e2edcf";
+                    ant.value = ctrl.value;
+                    id.value = typeahead_id_sel;
+                } else {
+                    ctrl.style.background = "#FFFCAD";
+                    ant.value = "";
+                    id.value = "";
+                }
+            }
+        }
+    }
+    ctrl_typeahead = null;
+    typeahead_id_sel = "";
+    typeahead_descripcion_sel = "";
+}
+
+
+function destacarover(ctrl) {    
+  
+    $(ctrl).addClass("opcionserviciohover");
+
+}
+function quitardestacarover(ctrl) {
+   
+    $(ctrl).removeClass("opcionserviciohover");
+
+}
+
+function destacarRubroOver(ctrl) {
+
+    $(ctrl).addClass("opcionrubrohover");
+
+}
+function quitarDestacarRubroOver(ctrl) {
+    $(ctrl).removeClass("opcionrubrohover");
+
+}
+
+
+
+function verarchivo(url) {
+    window.open(url);
+}
+
+function vertematica(tem_id, pst_id) {
+    if (pst_id == null || pst_id == 'undefinided') pst_id = '';
+    if ($i("tem_id") != null) {        
+        $i("tem_id").value = tem_id;
+        $i("pst_id").value = pst_id;
+        console.log(pst_id);
+        if ($("#modal_tematica")[0].style.display == "block") {
+            return;
+        }                
+        $i("btnCargarTematica").click();
+        $("#modal_tematica").modal("show");
+    }
+}
+
+function validartematica() {
+    var coordenadas_calculadas = false;
+    if ($i("pst_latitud") != null && $i("pst_longitud") != null) {
+        if ($i("pst_latitud").value != "" || $i("pst_longitud").value != "") {
+            coordenadas_calculadas = true;
+        }
+    }
+
+    if ($i("div_localidad") != null) {
+        if ($i("loc_id").value == "" ) {
+            swal({
+                title: 'Atención', text: "Debe seleccionar la localidad", type: 'warning'
+            });
+            return false;
+        }
+    }
+    if ($i("div_ugc") != null) {
+        if ($i("ugc_id").value == "") {
+            swal({
+                title: 'Atención', text: "Debe seleccionar la delegación", type: 'warning'
+            });
+            return false;
+        }
+    }
+    if ($i("div_barrio") != null) {
+        if ($i("bar_id").value == "") {
+            swal({
+                title: 'Atención', text: "Debe seleccionar el barrio", type: 'warning'
+            });
+            return false;
+        }
+    }
+    if ($i("div_calle") != null) {
+        if ($i("cal_descripcion").value == "" && !coordenadas_calculadas) {
+            swal({
+                title: 'Atención', text: "Debe seleccionar una calle", type: 'warning'
+            });
+            return false;
+        }
+    }
+
+    if ($i("div_altura") != null) {
+        if ($i("pst_altura").value == "" && !coordenadas_calculadas) {
+            swal({
+                title: 'Atención', text: "Debe ingresar una altura", type: 'warning'
+            });
+            return false;
+        }
+    }
+
+    if ($i("pst_latitud") != null && $i("pst_longitud") != null ) {
+        if ($i("pst_latitud").value == "" || $i("pst_longitud").value=="") {
+            swal({
+                title: 'Atención', text: "Debe presionar el botón del mapa para ubicar la dirección", type: 'warning'
+            });
+            return false;
+        }
+    }
+
+    if ($i("PSTE_OBSERVACIONES") != null) {
+        if ($i("PSTE_OBSERVACIONES").value == "" && $i("TEM_OBSERVACIONES_OBLIGATORIAS").value == 1) {
+            swal({
+                title: 'Atención', text: "Debe ingresar un comentario", type: 'warning'
+            });
+            return false;
+        }
+    }
+
+    var opciones = $(".opciones_tematica  input:radio");
+    if (opciones.length > 0) {
+        opciones = $(".opciones_tematica  input:checked");
+        if (opciones.length == 0) {
+            swal({
+                title: 'Atención', text: "Debe seleccionar una opción", type: 'warning'
+            });
+            return false;
+        }
+    }
+
+    var archivo_adjunto = false;
+    if ($i("PST_ARCHIVO_PATH") != null) {
+        if ($i("PST_ARCHIVO_PATH").value == "" && $i("TEM_ARCHIVO_OBLIGATORIO").value == 1 && $i("btnVerArchivoEnviado") == null) {
+            swal({
+                title: 'Atención', text: "Debe seleccionar un archivo para enviar", type: 'warning'
+            });
+            return false;
+        }
+        if ($i("PST_ARCHIVO_PATH").value != "") {
+            archivo_adjunto = true;
+        }
+    }
+    
+    return true;
+}
+
+function selFile(ctrl) {
+
+    var c = $("#lbl" + ctrl.id);
+  
+    if (ctrl.value == "") {
+        c.removeClass("btn-success");
+        c.addClass("btn-info");
+    } else {
+        c.removeClass("btn-info");
+        c.addClass("btn-success");
+        $i("archivo_sel").innerText = ctrl.files[0].name;
+    }
+}
+
+function verdeudaempresa(emp_id) {
+    window.open('ws_deuda_empresa.aspx?emp_id=' + emp_id);
+}
+
+function verdeudapartida(par_id) {
+    window.open('ws_deuda_partida.aspx?par_id=' + par_id);
+}
+
+function verificarpartida() {
+    var valor_nuevo = false;
+    if ($i("par_partida").value != "" && $i("par_partida").value != $i("par_partida_ant").value) valor_nuevo = true;
+    
+    if (valor_nuevo && $i("par_partida").value != "" ) {
+        setLoading(true);
+        $i("btnverificarpartida").click();
+    }
+}
+
+function verdeudavehiculo(veh_id) {
+    window.open('ws_deuda_vehiculo.aspx?veh_id=' + veh_id);
+}
+
+function verificarvehiculo() {
+    var valor_nuevo = false;
+    if ($i("veh_patente").value != "" && $i("veh_patente").value != $i("veh_patente_ant").value) valor_nuevo = true;
+
+    if (valor_nuevo && $i("veh_patente").value != "") {
+        setLoading(true);
+        $i("btnverificarvehiculo").click();
+    }
+}
+
+function corregirfamiliar() {
+    if ($i("fam_id") != null) {
+        if ($i("fam_id").value != "") {
+            window.open('lisfamiliares.aspx?fam_id=' + $i("fam_id").value);
+        }
+    }
+}
+
+function validarconsultalogin(ctrl) {
+    if ($i("email_consulta").value == "" ) {
+        swal({
+            title: 'Atención', text: "Debe ingresar su E-mail", type: 'warning'
+        });       
+        return false;
+    }
+    if ($i("apellido_y_nombre_consulta").value == "") {
+        swal({
+            title: 'Atención', text: "Debe ingresar su Apellido y Nombre", type: 'warning'
+        });
+        return false;
+    }
+    if ($i("mensaje_consulta").value == "") {
+        swal({
+            title: 'Atención', text: "Debe ingresar su Mensaje", type: 'warning'
+        });
+        return false;
+    }
+    ctrl.disabled = true;
+    setLoading(true);
+    return true;
+}
+
+function replaceNode(newElementID, targetElementID) {
+    var targetElement = document.getElementById(targetElementID);
+    var newElement = document.getElementById(newElementID);  
+    targetElement.replaceChild(newElement, targetElement.firstChild);
+}
+function replaceNodeLast(newElementID, targetElementID) {
+    var targetElement = document.getElementById(targetElementID);
+    var newElement = document.getElementById(newElementID);
+    targetElement.replaceChild(newElement, targetElement.lastChild);
+}
+
+
+var ctrl_lat = null;
+var ctrl_lon = null;
+var ctrl_miubicacion = null;
+function obtenermiubicacion(id_ctrl_lat, id_ctrl_lon,ictrl_miubicacion) {
+    ctrl_lat = $i(id_ctrl_lat);
+    ctrl_lon = $i(id_ctrl_lon);
+    ctrl_miubicacion = ictrl_miubicacion;
+    navigator.geolocation.getCurrentPosition(cargarmiubicacion, gestionarErroresGPS);
+}
+
+function cargarmiubicacion(posicion) {    
+    var datos = '';
+    datos += 'Latitud: ' + posicion.coords.latitude + '\n\n';
+    datos += 'Longitud: ' + posicion.coords.longitude + '\n\n';
+    datos += 'Exactitud: ' + posicion.coords.accuracy + ' metros.<br>';
+    console.log(datos);
+    if (parseInt(posicion.coords.accuracy,10) > 10000) {
+        swal({
+            title: 'Atención', text: "Su ubicación no es precisa, será necesario completarla manualmente.", type: 'warning'
+        });
+        ctrl_miubicacion.style.display = "none";
+    } else {
+        if (ctrl_lat != null && ctrl_lon != null) {
+            ctrl_lat.value = posicion.coords.latitude;
+            ctrl_lon.value = posicion.coords.longitude;
+            setearubicacioncalculada();
+        }
+    }
+}
+
+
+function gestionarErroresGPS(error) {
+    console.log('Error: ' + error.code + ' ' + error.message);    
+}
+
+function setearubicacioncalculada() {
+    if (ctrl_lat.value != "" && ctrl_lon.value != "") {
+        var btnmapa = null;
+        if ($i("btnMapaGM") != null && btnmapa == null) btnmapa = $i("btnMapaGM");
+        if ($i("btnMapaOS") != null && btnmapa == null) btnmapa = $i("btnMapaOS");
+        if (btnmapa != null) {
+            btnmapa.click();
+        }
+    }
+}
+
+function mensajeConfirmacionCustom(ctrl, titulo, pregunta, tipoMsj, textconfirm, textcancel,javafunction) {
+    if (titulo == null || titulo == "") titulo = 'Baja';
+    if (textconfirm == null || textconfirm == "" || textconfirm == 'undefined') textconfirm = 'Si';
+    if (textcancel == null || textcancel == "" || textcancel == 'undefined') textcancel = 'No';
+    if (pregunta == null || pregunta == "") pregunta = '¿Está seguro que desea dar de baja?';
+    if (tipoMsj == null || tipoMsj == "") tipoMsj = 'warning'
+    swal({
+        title: titulo, text: pregunta, type: tipoMsj,
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: textconfirm,
+        cancelButtonText: textcancel,
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then(function () {
+        ctrl.setAttribute('onclick', javafunction);
+     
+        ctrl.click();
+    });
+}
+
+function verarchivocallcenter(trarc_id, tra_id) {
+    window.location='getfilecallcenter.aspx?trarc_id=' + trarc_id + '&tra_id=' + tra_id + '&pese_id=' + $i("pese_id").value;
+}
+
+function toogle_notificaciones() {
+    if ($i("arribactrl2_div_notificaciones").style.display == "none") {
+        $i("arribactrl2_div_notificaciones").style.display = "block";
+        $("#arribactrl2_div_notificaciones").height(screen.height + 30);
+    } else {
+        $i("arribactrl2_div_notificaciones").style.display = "none";
+    }
+    
+}
+
+function clicBotonServicio(ser_id, sebo_id) {
+    window.open('ws_serviciobotonclic.aspx?ser_id=' + ser_id + '&sebo_id=' + sebo_id);
+}
+
+function generarCredencial(pese_id, pecr_id, secr_id, fam_id) {
+    window.open('ws_credencial.aspx?pese_id=' + pese_id + '&pecr_id=' + pecr_id + '&secr_id=' + secr_id + '&fam_id=' + fam_id);
+}
+
+function verarchivosubido(mear_id, men_id) {
+    window.open('getfile.aspx?men_id=' + men_id + '&mear_id=' + mear_id);
+}
+
+function selfile(ctrl) {
+    var p = $("[type=submit]", $(ctrl).parent())[0];
+    p.click();
+}
+function verarchivo(ctrl) {
+    var p = $("[type=hidden]", $(ctrl).parent())[0];
+    window.open(p.value);
+}

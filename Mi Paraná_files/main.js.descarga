@@ -1,0 +1,844 @@
+﻿var direccion_base = ', Buenos Aires, Argentina';
+
+var conf = {
+    noVisibleClass: 'd-none'
+};
+
+HTMLElement.prototype.show = function () {
+    this.style.display = "initial";
+    this.classList.remove(conf.noVisibleClass)
+}
+
+$(document).ready(function () {   
+    iniciargenerico();
+    seteomenu();
+    iniciarespecifico();
+    try {
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(postbackasync_general);
+    } catch (err) {
+
+    }
+});
+
+function postbackasync_general(sender, args) {
+    iniciargenerico();
+    iniciarespecifico();
+    setLoading(false);
+}
+//funcion para sobreescribir en cada pagina
+function iniciarespecifico() {}
+
+function seteomenu() {
+    $("#div_usuario").click(function () {
+        if ($($(this).children()[2]).css("display") == "none") {
+            $($(this).children()[2]).show();
+        } else {
+            $($(this).children()[2]).hide();
+        }
+    })
+    $("#minSideMenu").click(function () {
+        startSideMenu();
+    });
+
+    if ($("#minSideMenu") != null) startSideMenu(1);
+
+    $(".cursorPointerSideMenu").hover(
+        function () {
+            $($(this).children()[2]).show();
+        },
+        function () {
+            $($(this).children()[2]).hide();
+        }
+    );       
+}
+
+
+function startSideMenu(inicio) {
+    if (inicio == 1) {   
+        $("#sideMenu").animate({ width: "0" }, 0);
+        $(".opcionMenu").hide();
+    } else {        
+        if ($("#sideMenu").width() == 300) {
+            $("#sideMenu").animate({ width: "0px" }, 0);
+            $(".opcionMenu").hide();
+        } else {
+            $("#sideMenu").animate({ width: "300px" }, 200);
+            $(".opcionMenu").show();
+        }
+    }    
+}
+
+
+function iniciargenerico() {
+    setValNumeric();
+   // seteomenu();
+    //seteocamposcalle();
+    setearNoValidar();
+    setearValidar();
+    $('.time').timepicker({
+        template: false,
+        showInputs: false,
+        use24hours: true,
+        format: 'HH:mm',
+        showMeridian: false,
+        defaultTime:false,
+        minuteStep: 5/*,
+        showMeridian: false*/
+    });
+    setDatePicker();
+    seteocamposdireccion();
+    modalfix();
+}
+
+function modalfix() {
+    $('.modal').on("hidden.bs.modal", function (e) {
+        if ($('.modal:visible').length) {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if ($('.modal:visible').length) {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+}
+
+function setearNoValidar() {
+    $(".novalidar").click(function () {
+        var frm = $("FORM");
+        for (var i = 0; i < frm.length; i++) {
+            frm[i].setAttribute("novalidate", "");
+        }
+    });
+}
+function setearValidar() {
+    $(".validar").click(function () {
+        var frm = $("FORM");
+        for (var i = 0; i < frm.length; i++) {
+            console.log(frm[i]);
+            frm[i].removeAttribute("novalidate");
+        }
+    });
+}
+
+function seteocamposdireccion() {
+    if ($i("def_mun_id") == null || $i("mun_id") == null) {
+        if ($i("cal_descripcion") != null) {
+            if (!$i("cal_descripcion").disabled) {
+                $i("cal_descripcion").style.background = "#ffffff";
+            }            
+        }        
+        if ($i("cal_descripcion_entre1") != null) {
+            if (!$i("cal_descripcion_entre1").disabled) {
+                $i("cal_descripcion_entre1").style.background = "#ffffff";
+            }            
+        }
+        if ($i("cal_descripcion_entre2") != null) {
+            $i("cal_descripcion_entre2").style.background = "#ffffff";
+        }
+        return;
+    }
+    if ($i("def_mun_id") != null || $i("mun_id") != null) {
+        if ($i("def_mun_id").value!= $i("mun_id").value) {
+            if ($i("cal_descripcion") != null) {
+                if (!$i("cal_descripcion").disabled) {
+                    $i("cal_descripcion").style.background = "#ffffff";
+                }                
+            }
+            if ($i("cal_descripcion_entre1") != null) {
+                if (!$i("cal_descripcion_entre1").disabled) {
+                    $i("cal_descripcion_entre1").style.background = "#ffffff";
+                }                
+            }
+            if ($i("cal_descripcion_entre2") != null) {
+                if (!$i("cal_descripcion_entre2").disabled) {
+                    $i("cal_descripcion_entre2").style.background = "#ffffff";
+                }                
+            }
+            return;
+        }
+    }
+    if ($i("cal_descripcion") != null && $i("cal_descripcion_ant") != null && $i("cal_id") != null) {
+        if ($i("cal_descripcion").value == "") {
+            $i("cal_descripcion_ant").value = "";
+            $i("cal_id").value = "";
+        }
+        if ($i("cal_descripcion").value == $i("cal_descripcion_ant").value && $i("cal_id").value != "") {
+            if (!$i("cal_descripcion").disabled) {
+                $i("cal_descripcion").style.background = "#e2edcf";
+            }
+        } else {
+            if (!$i("cal_descripcion").disabled) {
+                $i("cal_descripcion").style.background = "#FFFFCF";
+            }            
+            $i("cal_descripcion_ant").value = "";
+            $i("cal_id").value = "";
+        }
+    }
+    if ($i("cal_descripcion_entre1") != null && $i("cal_descripcion_entre1_ant") != null && $i("cal_id_entre1") != null) {
+        if ($i("cal_descripcion_entre1").value == "") {
+            $i("cal_descripcion_entre1_ant").value = "";
+            $i("cal_id_entre1").value = "";
+        }
+        if ($i("cal_descripcion_entre1").value == $i("cal_descripcion_entre1_ant").value && $i("cal_id_entre1").value != "") {
+            if (!$i("cal_descripcion_entre1").disabled) {
+                $i("cal_descripcion_entre1").style.background = "#e2edcf";
+            }            
+        } else {
+            if (!$i("cal_descripcion_entre1").disabled) {
+                $i("cal_descripcion_entre1").style.background = "#FFFFCF";
+            }            
+            $i("cal_descripcion_entre1_ant").value = "";
+            $i("cal_id_entre1").value = "";
+        }
+    }
+    if ($i("cal_descripcion_entre2") != null && $i("cal_descripcion_entre2_ant") != null && $i("cal_id_entre2") != null) {
+        if ($i("cal_descripcion_entre2").value == "") {
+            $i("cal_descripcion_entre2_ant").value = "";
+            $i("cal_id_entre2").value = "";
+        }
+        if ($i("cal_descripcion_entre2").value == $i("cal_descripcion_entre2_ant").value && $i("cal_id_entre2").value != "") {
+            if (!$i("cal_descripcion_entre2").disabled) {
+                $i("cal_descripcion_entre2").style.background = "#e2edcf";
+            }            
+        } else {
+            if (!$i("cal_descripcion_entre2").disabled) {
+                $i("cal_descripcion_entre2").style.background = "#FFFFCF";
+            }            
+            $i("cal_descripcion_entre2_ant").value = "";
+            $i("cal_id_entre2").value = "";
+        }
+    }
+    if($i("btnMapaOS") != null && $i("per_latitud") != null && $i("per_longitud")!=null){
+        if ($i("per_latitud").value != "" && $i("per_longitud").value!="") {
+            $i("btnMapaOS").setAttribute("class", "btn btn-success d-inline");
+        } else {
+            $i("btnMapaOS").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+    
+    if($i("btnMapaGM") != null && $i("per_latitud") != null && $i("per_longitud") != null){
+        if ($i("per_latitud").value != "" && $i("per_longitud").value!="") {
+            $i("btnMapaGM").setAttribute("class", "btn btn-success d-inline");
+        } else {
+            $i("btnMapaGM").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnMapaOS") != null && $i("emdi_latitud") != null && $i("emdi_longitud") != null) {
+        if ($i("emdi_latitud").value != "" && $i("emdi_longitud").value != "") {
+            $i("btnMapaOS").setAttribute("class", "btn btn-success d-inline");
+        } else {
+            $i("btnMapaOS").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnMapaGM") != null && $i("emdi_latitud") != null && $i("emdi_longitud") != null) {
+        if ($i("emdi_latitud").value != "" && $i("emdi_longitud").value != "") {
+            $i("btnMapaGM").setAttribute("class", "btn btn-success d-inline");
+        } else {
+            $i("btnMapaGM").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnMapaOS") != null && $i("pese_latitud") != null && $i("pese_longitud") != null) {
+        if ($i("pese_latitud").value != "" && $i("pese_longitud").value != "") {
+            $i("btnMapaOS").setAttribute("class", "btn btn-success d-inline");
+            if ($i("div_estado_coordenadas") != null) {
+                $i("div_coordenadas_faltantes").setAttribute("class", "alert alert-danger d-none");
+                $i("div_coordenadas_completas").setAttribute("class", "alert alert-success");
+            }
+        } else {
+            $i("btnMapaOS").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnMapaGM") != null && $i("pese_latitud") != null && $i("pese_longitud") != null) {
+        if ($i("pese_latitud").value != "" && $i("pese_longitud").value != "") {
+            $i("btnMapaGM").setAttribute("class", "btn btn-success d-inline");
+            if ($i("div_estado_coordenadas") != null) {
+                $i("div_coordenadas_faltantes").setAttribute("class", "alert alert-danger d-none");
+                $i("div_coordenadas_completas").setAttribute("class", "alert alert-success");
+            }
+        } else {
+            $i("btnMapaGM").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnMapaOS") != null && $i("pst_latitud") != null && $i("pst_longitud") != null) {
+        if ($i("pst_latitud").value != "" && $i("pst_longitud").value != "") {
+            $i("btnMapaOS").setAttribute("class", "btn btn-success d-inline");
+            if ($i("div_estado_coordenadas") != null) {
+                $i("div_coordenadas_faltantes").setAttribute("class", "alert alert-danger d-none");
+                $i("div_coordenadas_completas").setAttribute("class", "alert alert-success");
+            }
+        } else {
+            $i("btnMapaOS").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnMapaGM") != null && $i("pst_latitud") != null && $i("pst_longitud") != null) {
+        if ($i("pst_latitud").value != "" && $i("pst_longitud").value != "") {
+            $i("btnMapaGM").setAttribute("class", "btn btn-success d-inline");
+            if ($i("div_estado_coordenadas") != null) {
+                $i("div_coordenadas_faltantes").setAttribute("class", "alert alert-danger d-none");
+                $i("div_coordenadas_completas").setAttribute("class", "alert alert-success");
+            }
+        } else {
+            $i("btnMapaGM").setAttribute("class", "btn btn-warning d-inline");
+        }
+    }
+
+    if ($i("btnLimpiar") != null && $i("per_latitud") != null) {
+        if ($i("per_latitud").value != "") {
+            $i("btnLimpiar").setAttribute("class", "btn btn-default d-inline");
+        }        
+    }
+
+    if ($i("btnLimpiar") != null && $i("emdi_latitud") != null) {
+        if ($i("emdi_latitud").value != "") {
+            $i("btnLimpiar").setAttribute("class", "btn btn-default d-inline");
+        }
+    }
+
+    if ($i("btnLimpiar") != null && $i("pese_latitud") != null) {
+        if ($i("pese_latitud").value != "") {
+            $i("btnLimpiar").setAttribute("class", "btn btn-default d-inline");
+        }
+    }
+
+    if ($i("btnLimpiar") != null && $i("pst_latitud") != null) {
+        if ($i("pst_latitud").value != "") {
+            $i("btnLimpiar").setAttribute("class", "btn btn-default d-inline");
+        }
+    }
+    
+}
+
+function LimpiarCoordenadas() {
+    if ($i("per_latitud")!=null)    $i("per_latitud").value = "";
+    if ($i("per_longitud") != null) $i("per_longitud").value = "";
+    if ($i("emdi_latitud") != null) $i("emdi_latitud").value = "";
+    if ($i("emdi_longitud") != null) $i("emdi_longitud").value = "";
+    if ($i("pese_latitud") != null) $i("pese_latitud").value = "";
+    if ($i("pese_longitud") != null) $i("pese_longitud").value = "";
+    if ($i("pst_latitud") != null) $i("pst_latitud").value = "";
+    if ($i("pst_longitud") != null) $i("pst_longitud").value = "";
+    if ($i("btnMapaGM") != null)    $i("btnMapaGM").setAttribute("class", "btn btn-warning d-inline");
+    if ($i("btnMapaOS") != null)    $i("btnMapaOS").setAttribute("class", "btn btn-warning d-inline");
+    if ($i("btnLimpiar") != null) $i("btnLimpiar").setAttribute("class", "btn btn-default d-none");
+    if ($i("div_coordenadas_faltantes") != null) $i("div_coordenadas_faltantes").setAttribute("class", "alert alert-danger");
+    if ($i("div_coordenadas_completas") != null) $i("div_coordenadas_completas").setAttribute("class", "alert alert-success d-none");
+}
+
+var maxzoom = 16;
+function verMapa(modo, solo_lectura, solo_empresa) {
+    if (solo_empresa == null || solo_empresa=="undefined") solo_empresa = 0;
+    var url = '/mapa/mapa_google.aspx?q=1';
+    if (modo == 1) {
+        url = '/mapa/mapa_os.aspx?q=1';
+    }
+    var latitud = "";
+    var longitud = "";
+    var coordenadas_ya_calculadas = false;
+    if ($i("per_latitud") != null && solo_empresa==0) {
+        latitud = 'per_latitud';
+        longitud = 'per_longitud';
+    }
+    if ($i("emdi_latitud") != null) {
+        latitud = 'emdi_latitud';
+        longitud = 'emdi_longitud';
+    }
+    if ($i("pese_latitud") != null) {
+        latitud = 'pese_latitud';
+        longitud = 'pese_longitud';
+    }
+    if ($i("pst_latitud") != null) {
+        latitud = 'pst_latitud';
+        longitud = 'pst_longitud';
+    }
+    
+    if (latitud!="") {
+        url = url + '&drag=1&ctrls=' + latitud + ' ' + longitud + ' btnMapaGM';
+        url = url + '&lat=' + $i(latitud).value;
+        if ($i(latitud).value != "") {
+            coordenadas_ya_calculadas = true;
+        }
+    } else {
+        url = url + '&sololectura=1';
+        if ($i(latitud + "_hi") != null) {
+            url = url + '&lat=' + $i(latitud + "hi").value;
+        }
+    }
+
+    if (longitud!="") {
+        url = url + '&lng=' + $i(longitud).value;
+    } else {
+        if ($i(longitud + "_hi") != null) {
+            url = url + '&lng=' + $i(longitud +  "_hi").value;
+        }
+    }
+    if (solo_lectura == null) {   
+        var a = "";
+        if ($i("per_altura") != null ) {
+            if ($i("per_altura").value == "" && !coordenadas_ya_calculadas) {
+                swal({
+                    title: 'Atención', text: "Debe ingresar una Altura.", type: 'warning'
+                });
+              
+                $i("per_altura").focus();
+                $i("per_altura").select();
+                return;
+            }
+            a = $i("per_altura").value;
+        }
+        if ($i("emdi_altura") != null) {
+            if ($i("emdi_altura").value == "" && !coordenadas_ya_calculadas) {
+             
+                swal({
+                    title: 'Atención', text: "Debe ingresar una Altura.", type: 'warning'
+                });
+                $i("emdi_altura").focus();
+                $i("emdi_altura").select();
+                return;
+            }
+            a = $i("emdi_altura").value;
+        }
+        if ($i("pese_altura") != null) {
+            if ($i("pese_altura").value == "" && !coordenadas_ya_calculadas) {
+                swal({
+                    title: 'Atención', text: "Debe ingresar una Altura.", type: 'warning'
+                });              
+                $i("pese_altura").focus();
+                $i("pese_altura").select();
+                return;
+            }
+            a = $i("pese_altura").value;
+        }
+        if ($i("pst_altura") != null) {
+            if ($i("pst_altura").value == "" && !coordenadas_ya_calculadas) {
+                swal({
+                    title: 'Atención', text: "Debe ingresar una Altura.", type: 'warning'
+                });
+                $i("pst_altura").focus();
+                $i("pst_altura").select();
+                return;
+            }
+            a = $i("pst_altura").value;
+        }
+        if ($i("cal_descripcion") != null) {
+            if ($i("cal_descripcion").value == "" && !coordenadas_ya_calculadas) {
+               
+                swal({
+                    title: 'Atención', text: "Debe ingresar una calle.", type: 'warning'
+                });
+                $i("cal_descripcion").focus();
+                $i("cal_descripcion").select();
+                return;
+            }
+            a = a + ' ' + $i("cal_descripcion").value;
+        }
+        var b = "";
+        var localidad = "";
+        if ($i("loc_id") != null) {
+            if ($i("loc_id").value != "") {
+                localidad = $i("loc_id").options[$i("loc_id").selectedIndex].text;
+            }
+        }
+        if ($i("mun_id") != null && localidad == "") {
+            try {
+                if ($i("mun_id").value != "") {
+                    localidad = $i("mun_id").options[$i("mun_id").selectedIndex].text;
+                }
+            }
+            catch (err) {
+
+            }
+        }
+        if ($i("default_mapa") != null) {
+            if ($i("default_mapa").value != "") {
+                var partes = $i("default_mapa").value.split(",");
+                if (partes.length == 4) {
+                    if (localidad == "") {
+                        partes[1] = localidad;
+                    }
+                }
+                b = partes.join(", ");
+            }
+        }
+
+        if (a != "") { url = url + "&a=" + a; }
+        if (b != "") { url = url + "&b=" + b; } 
+
+        if ($i("cal_id") != null) { if ($i("cal_id").value != "") url = url + '&cal_id=' + $i("cal_id").value; }
+        if ($i("cal_descripcion") != null) { if ($i("cal_descripcion").value != "") url = url + '&cal_descripcion=' + $i("cal_descripcion").value; }
+        if ($i("per_altura") != null && solo_empresa == 0) { if ($i("per_altura").value != "") url = url + '&altura=' + $i("per_altura").value; }
+        if ($i("emdi_altura") != null) { if ($i("emdi_altura").value != "") url = url + '&altura=' + $i("emdi_altura").value; }
+        if ($i("pese_altura") != null) { if ($i("pese_altura").value != "") url = url + '&altura=' + $i("pese_altura").value; }
+        if ($i("pst_altura") != null) { if ($i("pst_altura").value != "") url = url + '&altura=' + $i("pst_altura").value; }
+    }
+    var tit = "Cálculo de Coordenadas";
+
+    if (solo_lectura == 1) {
+        url = url + '&solo_lectura=1';
+        tit = "Ubicación";
+    }
+    if ($i("arribactrl2_ifrm") != null) {
+        $i("arribactrl2_ifrm").src = url;
+    }
+    if ($i("arriba1_ifrm") != null) {
+        $i("arriba1_ifrm").src = url;
+    }
+    if ($i("arribactrl_ifrm") != null) {
+        $i("arribactrl_ifrm").src = url;
+    }
+
+    $i("titulo_modal").innerText = tit;
+    $('#modal').modal('show');
+}
+
+
+
+function setDatePicker() {
+    if (document.querySelector(".date")) {
+        $('.date').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+    }
+    if (document.querySelector(".datetxt")) {
+        $('.datetxt').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+    }
+    //  NO CAMBIAR NUNCA
+    if (document.querySelector(".datetime")) {
+        $('.datetime').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm A',
+            locale: 'es',
+        });
+    }
+    /////////////
+}
+
+function $i(elemento) {
+    return document.getElementById(elemento);
+}
+
+function Output(str) { try { console.log(str); } catch (x) { } }
+
+function ltrim(str, filter) {
+    filter || (filter = '\\s|\\&nbsp;');
+    var pattern = new RegExp('^(' + filter + ')*', 'g');
+    return str.replace(pattern, "");
+}
+function rtrim(str, filter) {
+    filter || (filter = '\\s|\\&nbsp;');
+    var pattern = new RegExp('(' + filter + ')*$', 'g');
+    return str.replace(pattern, "");
+}
+function trim(str, filter) {
+    filter || (filter = '\\s|\\&nbsp;');
+    return ltrim(rtrim(str, filter), filter);
+}
+
+/*************************/
+function loading(ctrl) {
+    $i("fondoLoading").classList.add("opa03");
+    $i("loading").classList.add("opa08");
+    ctrl.style.display = "none";
+}
+function setLoading(state) {
+    if (document.getElementById('loading') != null) {
+        if (state) {
+            document.getElementById('loading').classList.remove('no-visible');
+            //document.getElementById("loading").style.height = $("body").height();
+            $("#loading").height($(document).height());
+        } else {
+            document.getElementById('loading').classList.add('no-visible');
+        }
+    }   
+}
+
+function redireccionar(url) {
+    setLoading(true);
+    window.location = url;
+}
+function redirect(url) {
+    redireccionar(url);
+}
+function redirect_blank(url) {
+    window.open(url, '_blank');
+}
+function isMobile() {
+    var device = navigator.userAgent
+    if (device.match(/Iphone/i) || device.match(/Ipod/i) || device.match(/Android/i) || device.match(/J2ME/i) || device.match(/BlackBerry/i) || device.match(/iPhone|iPad|iPod/i) || device.match(/Opera Mini/i) || device.match(/IEMobile/i) || device.match(/Mobile/i) || device.match(/Windows Phone/i) || device.match(/windows mobile/i) || device.match(/windows ce/i) || device.match(/webOS/i) || device.match(/palm/i) || device.match(/bada/i) || device.match(/series60/i) || device.match(/nokia/i) || device.match(/symbian/i) || device.match(/HTC/i)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function validar_numero(ctrl) {
+    ctrl.value = ctrl.value.replace(",", ".");
+    if (isNaN(ctrl.value)) { ctrl.value = ''; }
+}
+
+function mensajeConfirmacion(ctrl, titulo, pregunta, tipoMsj, textconfirm, textcancel) {
+    if (titulo == null || titulo == "") titulo = 'Baja';
+    if (textconfirm == null || textconfirm == "" || textconfirm=='undefined' ) textconfirm = 'Si';
+    if (textcancel == null || textcancel == "" || textcancel == 'undefined') textcancel = 'No';
+    if (pregunta == null || pregunta == "") pregunta = '¿Está seguro que desea dar de baja?';
+    if (tipoMsj == null || tipoMsj == "") tipoMsj = 'warning'
+    swal({
+        title: titulo, text: pregunta, type: tipoMsj,
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: textconfirm,
+        cancelButtonText: textcancel,
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then(function () {
+        ctrl.setAttribute('onclick', "");
+        setLoading(true);
+        ctrl.click();
+    });
+}
+
+function alignNum(ctrl) {
+    ctrl.style.textAlign = 'right';
+    ctrl.placeholder = "";
+}
+
+function encrypt(e, u) {
+    
+    if ($i(e) == null || $i(u) == null) return; 
+    e = $i(e), u = $i(u), "" != e.value && (u.value = hex_md5(e.value), e.value = "");
+}
+
+function setValNumeric() {
+    var nodos = document.getElementsByClassName("numeric");
+    for (var i = 0; i <= nodos.length - 1; i++) {
+        var valatrib = "";
+        if (nodos[i].hasAttribute("onKeyUp")) {
+            valatrib = nodos[i].getAttribute("onKeyUp");
+            valatrib = valatrib.replace("validar_numero(this);", "");
+        }
+        nodos[i].setAttribute("onKeyUp", valatrib + "validar_numero(this);");
+    }
+}
+
+function getEdad(fecha) {    
+    var hoy = new Date();  
+    var array_fecha = fecha.split("/");  
+    if (array_fecha.length != 3)
+        return '';
+    //compruebo que los ano, mes, dia son correctos
+    var ano = parseInt(array_fecha[2]);
+    if (isNaN(ano))
+        return '';
+    var mes = parseInt(array_fecha[1]);
+    if (isNaN(mes))
+        return '';
+    var dia = parseInt(array_fecha[0]);
+    if (isNaN(dia))
+        return '';
+    if (ano <= 99) ano += 1900; 
+    var edad = hoy.getFullYear() - ano - 1; 
+    if (hoy.getMonth() + 1 - mes < 0)
+        return edad;
+    if (hoy.getMonth() + 1 - mes > 0)
+        return edad + 1;
+    if (hoy.getUTCDate() - dia >= 0)
+        return edad + 1;
+    return edad;
+}
+
+function verayuda(ayu_id) {
+    var ctrl;
+    if ($i("arriba1_ifrm") != null) {
+        ctrl = $i("arriba1_ifrm");
+    }
+    if ($i("arribactrl_ifrm") != null) {
+        ctrl = $i("arribactrl_ifrm");
+    }
+    if ($i("arribactrl2_ifrm") != null) {
+        ctrl = $i("arribactrl2_ifrm");
+    }
+    ctrl.src = '/hsayuda.aspx?ayu_id=' + ayu_id;
+    $i("titulo_modal").innerText = "Ayuda";
+    $('#modal').modal('show');
+}
+
+function buscarcalle(ctrl_cal_descripcion,forzar) {
+    if ($i("def_mun_id") != null && $i("mun_id") != null && forzar==null) {
+        if ($i("def_mun_id").value != $i("mun_id").value) {
+            return;
+        }
+    }
+
+    var ctrl_cal_id = $i(ctrl_cal_descripcion.id.replace("_descripcion", "_id"));
+    var ctrl_cal_descripcion_ant = $i(ctrl_cal_descripcion.id + '_ant');
+    if (ctrl_cal_descripcion.value == ctrl_cal_descripcion_ant.value && forzar==null) return;
+
+    ctrl_cal_descripcion.style.background = "#FFFFCF";
+    ctrl_cal_descripcion_ant.value = "";
+    ctrl_cal_id.value = "";
+    var url = '/buscarcalle.aspx?cal_descripcion=' + ctrl_cal_descripcion.value;
+
+    url = url + '&origen=' + ctrl_cal_descripcion.id;
+    console.log('url:' + url);
+    var ctrl;
+    if ($i("arriba1_ifrm") != null) {
+        ctrl = $i("arriba1_ifrm");
+    }
+    if ($i("arribactrl_ifrm") != null) {
+        ctrl = $i("arribactrl_ifrm");
+    }
+    if ($i("arribactrl2_ifrm") != null) {
+        ctrl = $i("arribactrl2_ifrm");
+    }
+    ctrl.src = url;
+    $i("titulo_modal").innerText = "Seleccione la calle correspondiente";
+    $('#modal').modal('show');
+}
+
+function cerrarmodal() {   
+    $('#modal').modal('hide');
+ 
+
+}
+
+
+    function wscalle(ctrl, tomar_localidad) {
+        if (tomar_localidad == undefined) tomar_localidad = false;
+        if (ctrl != null) {
+            $(ctrl).prop("autocomplete", "off");
+            $(ctrl).typeahead({
+                source: function (query, result) {
+                    $.ajax({
+                        url: "/wscalle.aspx",
+                        data: 'cal=' + query,
+                        dataType: "json",
+                        type: "GET",
+                        success: function (data) {
+                            result($.map(data, function (item) {
+                                return item;
+                            }));
+                        }
+                    });
+                },
+                updater: function (obj) {
+                    console.log('updater');
+                    console.log(obj);
+                    typeahead_id_sel = obj.id;
+                    typeahead_descripcion_sel = obj.name;
+
+                    if (tomar_localidad) {
+                        if ($i("loc_id") != null && obj.loc_id != "") {
+                            $i("loc_id").value = obj.loc_id;
+                        }
+                    }
+                    return obj;
+                },
+                afterSelect: function (obj) {
+                    console.log('afterSelect');
+                    console.log(obj);
+                    typeahead_id_sel = obj.id;
+                    typeahead_descripcion_sel = obj.name;
+                    if (tomar_localidad) {
+                        if ($i("loc_id") != null && obj.loc_id != "") {
+                            $i("loc_id").value = obj.loc_id;
+                        }
+                    }
+                    return obj;
+                }
+            });
+            $(ctrl).on("focus", function () {
+                typeaheadIn(this);
+            });
+            $(ctrl).on("blur", function () {
+                typeaheadOut(this);
+            });
+        }
+    }
+
+
+    var ctrl_typeahead = null;
+    var typeahead_id_sel = "";
+    var typeahead_descripcion_sel = "";
+
+    function typeaheadIn(ctrl) {
+        typeahead_descripcion_sel = ctrl.value;
+        var id = $i(ctrl.id.replace("_descripcion", "_id"));
+        var ant = $i(ctrl.id + "_ant");
+        if (id != null && ant != null) {
+
+            if (id.value != "" && ctrl.value == ant.value) {
+                typeahead_id_sel = id.value;
+                ctrl.style.background = "#e2edcf";
+            }
+            ctrl_typeahead = ctrl;
+        }
+
+    }
+    function typeaheadOut(ctrl) {
+        if (ctrl_typeahead != null) {
+            if (ctrl.id == ctrl_typeahead.id) {
+
+                var id = $i(ctrl.id.replace("_descripcion", "_id"));
+                var ant = $i(ctrl.id + "_ant");
+
+                if (id != null && ant != null) {
+
+                    if (ctrl_typeahead.value == typeahead_descripcion_sel && typeahead_id_sel != "") {
+                        ctrl.style.background = "#e2edcf";
+                        ant.value = ctrl.value;
+                        id.value = typeahead_id_sel;
+                    }
+                }
+            }
+        }
+        ctrl_typeahead = null;
+        typeahead_id_sel = "";
+        typeahead_descripcion_sel = "";
+}
+
+
+
+// funciones  especificas de  este proyecto
+
+function tematicasarchivos(ser_id, tem_id, sin_leer) {
+    if (sin_leer == null) sin_leer = "";
+    window.location = 'lissuscripciones.aspx?buscar=1&ser_id=' + ser_id + '&tem_id=' + tem_id + '&tematica_pendiente=1&sin_leer=' + sin_leer;
+}
+
+function vertematicaenviada(ser_id, pese_id, pst_id) {
+    window.location = 'persona_tematica.aspx?ser_id=' + ser_id + '&pese_id=' + pese_id + '&pst_id=' + pst_id;
+}
+
+
+function verdeudapartida(par_id) {
+    window.open('ws_deuda_partida.aspx?par_id=' + par_id + "&per_id_cuenta=" + $i("per_id_cuenta").value);
+}
+
+
+function verdeudavehiculo(veh_id) {
+    window.open('ws_deuda_vehiculo.aspx?veh_id=' + veh_id + "&per_id_cuenta=" + $i("per_id_cuenta").value);
+}
+
+
+function verdeudaempresa(emp_id) {
+    window.open('ws_deuda_empresa.aspx?emp_id=' + emp_id + "&per_id_cuenta=" + $i("per_id_cuenta").value);
+}
+
+function nuevomensaje() {
+    window.location = 'mensaje.aspx?per_id_cuenta=' + $i("per_id_cuenta").value;
+}
+
+function tomarselfie() {
+    window.location = 'selfie.aspx';
+}
